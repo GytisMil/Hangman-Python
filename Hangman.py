@@ -1,1 +1,1 @@
-#Main file to launch Hangman game test
+#Main file to launch Hangman game
