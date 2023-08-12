@@ -13,9 +13,11 @@ while(mode != "S" and mode != "s" and mode != "M" and mode != "m" and mode != "Q
 if(mode == "S" or mode == "s"):
     WordSeed = 0
     print("Singleplayer mode selected!")
-    WordList = Singleplayer_functions.CreateWordArray()
     WordSeed = Singleplayer_functions.GenerateWordSeed()
+    WordList = Singleplayer_functions.CreateWordArray()
     Word = Singleplayer_functions.GetNewWord(WordSeed, WordList)
-    print(Word)
+    print("Word generated!")
+    Correct_Letters = Singleplayer_functions.MakeWordLetters(Word)
+    Singleplayer_functions.Singleplayer_game(Word, Correct_Letters)
 elif(mode == "M" or mode == "m"):
     print("Multiplayer mode selected!")
