@@ -46,6 +46,17 @@ def PrintCurrentLetters(letters, guesses):
             else:
                 print("_")
 
+def PrintUsedLetters(guesses, counter):
+    print("Used letters: ", end = "")
+    x = 0
+    while x < counter:
+        if(x + 1 != counter):
+            print(guesses[x] + " ", end="")
+            x += 1
+        else:
+            print(guesses[x])
+            x += 1
+
 def Singleplayer_game(word, letters):
     lives = 5
     guesses = [0] * (lives * len(letters))
@@ -54,7 +65,12 @@ def Singleplayer_game(word, letters):
     while(lives > 0):
         print("You currently have " + str(lives) + " lives.")
         PrintCurrentLetters(currentword, guesses)
-        guess = input("Guess the letter:")
-        print(letters)
-        guesses[guesscount] = guess
-        guesscount += 1
+        if(guesscount != 0):
+            PrintUsedLetters(guesses, guesscount)
+            guess = input("Guess the letter:")
+            guesses[guesscount] = guess
+            guesscount += 1
+        else:
+            guess = input("Guess the letter:")
+            guesses[guesscount] = guess
+            guesscount += 1
