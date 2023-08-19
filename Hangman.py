@@ -11,7 +11,6 @@ while(mode != "S" and mode != "s" and mode != "M" and mode != "m" and mode != "Q
     print("If you launched this file accidentally, then you can type 'Q' to quit.")
     mode = input()
 if(mode == "S" or mode == "s"):
-    WordSeed = 0
     print("Singleplayer mode selected!")
     WordSeed = Singleplayer_functions.GenerateWordSeed()
     WordList = Singleplayer_functions.CreateWordArray()
