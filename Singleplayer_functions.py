@@ -30,12 +30,23 @@ def MakeWordLetters(word):
     letters[0] = letters[0].upper()
     return letters
 
-def CheckGuess(guesslist, letters):
-    pass
+def CheckRepeater(letter, guesslist, guesscounter):
+    if letter.lower() in guesslist and letter.upper() in guesslist:
+        guesslist[guesscounter] = 0
+    else:
+        guesslist[guesscounter] = letter
+        guesscounter += 1
+
+def CheckGuess(lives, letter, word):
+    if letter.lower() not in word and letter.upper() not in word:
+        lives -= 1
+        return lives
+    else:
+        return lives
 
 def PrintCurrentLetters(letters, guesses):
     for letter in letters:
-        if letter.lower() in guesses:
+        if letter.lower() in guesses or letter.upper() in guesses:
             if(letter != letters[len(letters) - 1]):
                 print(letter + " ", end = "")
             else:
@@ -63,14 +74,26 @@ def Singleplayer_game(word, letters):
     guesscount = 0
     currentword = letters
     while(lives > 0):
+        print(currentword)
         print("You currently have " + str(lives) + " lives.")
         PrintCurrentLetters(currentword, guesses)
         if(guesscount != 0):
             PrintUsedLetters(guesses, guesscount)
             guess = input("Guess the letter:")
-            guesses[guesscount] = guess
-            guesscount += 1
+            if(guess.strip() != '' and len(guess) == 1):
+                CheckRepeater(guess, guesses, guesscount)
+                lives = CheckGuess(lives, guess, letters)
+                #os.system('cls')
+            else:
+                #os.system('cls')
+                print("Invalid input. Try again.")
         else:
             guess = input("Guess the letter:")
-            guesses[guesscount] = guess
-            guesscount += 1
+            if(guess.strip() != '' and len(guess) == 1):
+                guesses[guesscount] = guess
+                guesscount += 1
+                lives = CheckGuess(lives, guess, letters)
+                #os.system('cls')
+            else:
+                #os.system('cls')
+                print("Invalid input. Try again.")
