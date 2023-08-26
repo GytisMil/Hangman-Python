@@ -1,6 +1,7 @@
 from datetime import datetime
 import random
 import os
+import re
 def CreateWordArray():
     wlist = open("English_dictionary.txt", "r")
     words = [0] * 370102
@@ -31,11 +32,12 @@ def MakeWordLetters(word):
     return letters
 
 def CheckRepeater(letter, guesslist, guesscounter):
-    if letter.lower() in guesslist and letter.upper() in guesslist:
+    if letter.lower() in guesslist or letter.upper() in guesslist:
         guesslist[guesscounter] = 0
+        return False
     else:
         guesslist[guesscounter] = letter
-        guesscounter += 1
+        return True
 
 def CheckGuess(lives, letter, word):
     if letter.lower() not in word and letter.upper() not in word:
@@ -57,6 +59,16 @@ def PrintCurrentLetters(letters, guesses):
             else:
                 print("_")
 
+def CheckReveal(word, guesses):
+    counter = 0
+    for letter in word:
+        if letter.lower() in guesses or letter.upper() in guesses:
+            counter += 1
+    if counter == len(word):
+        return True
+    else:
+        return False
+
 def PrintUsedLetters(guesses, counter):
     print("Used letters: ", end = "")
     x = 0
@@ -72,28 +84,33 @@ def Singleplayer_game(word, letters):
     lives = 5
     guesses = [0] * (lives * len(letters))
     guesscount = 0
+    revealed = False
     currentword = letters
-    while(lives > 0):
-        print(currentword)
+    while(lives > 0 and revealed == False):
         print("You currently have " + str(lives) + " lives.")
         PrintCurrentLetters(currentword, guesses)
         if(guesscount != 0):
             PrintUsedLetters(guesses, guesscount)
             guess = input("Guess the letter:")
-            if(guess.strip() != '' and len(guess) == 1):
-                CheckRepeater(guess, guesses, guesscount)
-                lives = CheckGuess(lives, guess, letters)
-                #os.system('cls')
+            if(guess.strip() != '' and len(guess) == 1 and bool(re.search('^[a-zA-Z0-9]*$',guess)) == True):
+                if(CheckRepeater(guess, guesses, guesscount)):
+                    guesscount += 1
+                    lives = CheckGuess(lives, guess, letters)
+                    revealed = CheckReveal(letters, guesses)
+                    os.system('cls')
+                else:
+                    os.system('cls')
+                    print("You already used this letter!")
             else:
-                #os.system('cls')
+                os.system('cls')
                 print("Invalid input. Try again.")
         else:
             guess = input("Guess the letter:")
-            if(guess.strip() != '' and len(guess) == 1):
+            if(guess.strip() != '' and len(guess) == 1 and bool(re.search('^[a-zA-Z0-9]*$',guess))==True):
                 guesses[guesscount] = guess
                 guesscount += 1
                 lives = CheckGuess(lives, guess, letters)
-                #os.system('cls')
+                os.system('cls')
             else:
-                #os.system('cls')
+                os.system('cls')
                 print("Invalid input. Try again.")
