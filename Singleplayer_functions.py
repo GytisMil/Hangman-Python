@@ -80,7 +80,17 @@ def PrintUsedLetters(guesses, counter):
             print(guesses[x])
             x += 1
 
-def Singleplayer_game(word, letters):
+def LossDisplay(word):
+    print("You lost!")
+    answer = ''
+    for letter in word:
+        answer += letter
+    print("The word was '" + answer + "'")
+
+def WinDisplay(word, lives, guesses, guesscount):
+    print("You won!")
+    answer
+def Singleplayer_game(letters):
     lives = 5
     guesses = [0] * (lives * len(letters))
     guesscount = 0
@@ -114,3 +124,7 @@ def Singleplayer_game(word, letters):
             else:
                 os.system('cls')
                 print("Invalid input. Try again.")
+    if(lives == 0):
+        LossDisplay(currentword)
+    else:
+        WinDisplay(currentword)

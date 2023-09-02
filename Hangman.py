@@ -17,6 +17,6 @@ if(mode == "S" or mode == "s"):
     Word = Singleplayer_functions.GetNewWord(WordSeed, WordList)
     print("Word generated!")
     Correct_Letters = Singleplayer_functions.MakeWordLetters(Word)
-    Singleplayer_functions.Singleplayer_game(Word, Correct_Letters)
+    Singleplayer_functions.Singleplayer_game(Correct_Letters)
 elif(mode == "M" or mode == "m"):
     print("Multiplayer mode selected!")
