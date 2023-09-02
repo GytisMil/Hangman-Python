@@ -106,7 +106,6 @@ def Singleplayer_game(letters):
     while(lives > 0 and revealed == False):
         print("You currently have " + str(lives) + " lives.")
         PrintCurrentLetters(currentword, guesses)
-        print(currentword)
         if(guesscount != 0):
             PrintUsedLetters(guesses, guesscount)
             guess = input("Guess the letter:")
