@@ -109,7 +109,7 @@ def Singleplayer_game(letters):
         if(guesscount != 0):
             PrintUsedLetters(guesses, guesscount)
             guess = input("Guess the letter:")
-            if(guess.strip() != '' and len(guess) == 1 and bool(re.search('^[a-zA-Z0-9]*$',guess)) == True):
+            if(guess.strip() != '' and len(guess) == 1 and bool(re.search('^[a-zA-Z]*$',guess)) == True):
                 if(CheckRepeater(guess, guesses, guesscount)):
                     guesscount += 1
                     lives = CheckGuess(lives, guess, letters)
@@ -123,7 +123,7 @@ def Singleplayer_game(letters):
                 print("Invalid input. Try again.")
         else:
             guess = input("Guess the letter:")
-            if(guess.strip() != '' and len(guess) == 1 and bool(re.search('^[a-zA-Z0-9]*$',guess))==True):
+            if(guess.strip() != '' and len(guess) == 1 and bool(re.search('^[a-zA-Z]*$',guess))==True):
                 guesses[guesscount] = guess
                 guesscount += 1
                 lives = CheckGuess(lives, guess, letters)
