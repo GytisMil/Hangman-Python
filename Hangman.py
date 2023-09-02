@@ -1,6 +1,6 @@
 #Main file to launch Hangman game
 import Singleplayer_functions
-
+import Two_Player_functions
 print("Welcome to Hangman game made in Python.")
 print("Play Singleplayer (S) or Dual-Player (T)?")
 print("If you launched this file accidentally, then you can type 'Q' to quit.")
@@ -28,3 +28,12 @@ if(mode == "S" or mode == "s"):
             SPagain = input()
 elif(mode == "T" or mode == "t"):
     print("Dual-Player mode selected!")
+    Hanger = 1
+    Guesser = 2
+    print("Do you need instructions how this game works? (Y/N)")
+    instruct = input()
+    while(instruct != "N" and instruct != 'n' and instruct != 'Y' and instruct != 'y'):
+        print("Invalid input.")
+        instruct = input()
+    if(instruct == 'Y' or instruct == 'y'):
+        Two_Player_functions.Instructions()
