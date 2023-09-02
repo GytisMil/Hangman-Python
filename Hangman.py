@@ -12,11 +12,19 @@ while(mode != "S" and mode != "s" and mode != "t" and mode != "t" and mode != "Q
     mode = input()
 if(mode == "S" or mode == "s"):
     print("Singleplayer mode selected!")
-    WordSeed = Singleplayer_functions.GenerateWordSeed()
     WordList = Singleplayer_functions.CreateWordArray()
-    Word = Singleplayer_functions.GetNewWord(WordSeed, WordList)
-    print("Word generated!")
-    Correct_Letters = Singleplayer_functions.MakeWordLetters(Word)
-    Singleplayer_functions.Singleplayer_game(Correct_Letters)
+    SPagain = ''
+    while(SPagain != "N" and SPagain != "n"):
+        WordSeed = Singleplayer_functions.GenerateWordSeed()
+        Word = Singleplayer_functions.GetNewWord(WordSeed, WordList)
+        print("Word generated!")
+        Correct_Letters = Singleplayer_functions.MakeWordLetters(Word)
+        Singleplayer_functions.Singleplayer_game(Correct_Letters)
+        print("Play again? (Y/N)")
+        SPagain = input()
+        while(SPagain != "N" and SPagain != 'n' and SPagain != 'Y' and SPagain != 'y'):
+            print("Invalid input.")
+            print("Play again? (Y/N)")
+            SPagain = input()
 elif(mode == "T" or mode == "t"):
     print("Dual-Player mode selected!")
