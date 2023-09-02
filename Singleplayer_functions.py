@@ -80,16 +80,23 @@ def PrintUsedLetters(guesses, counter):
             print(guesses[x])
             x += 1
 
-def LossDisplay(word):
+def CreateFullWord(letters):
+    word = ''
+    for letter in letters:
+        word += letter
+    return word
+
+def LossDisplay(letters):
     print("You lost!")
-    answer = ''
-    for letter in word:
-        answer += letter
+    answer = CreateFullWord(letters)
     print("The word was '" + answer + "'")
 
-def WinDisplay(word, lives, guesses, guesscount):
+def WinDisplay(letters, lives):
     print("You won!")
-    answer
+    answer = CreateFullWord(letters)
+    print("The word was '" + answer + "'")
+    print("You had " + str(lives) + " lives remaining")
+
 def Singleplayer_game(letters):
     lives = 5
     guesses = [0] * (lives * len(letters))
@@ -99,6 +106,7 @@ def Singleplayer_game(letters):
     while(lives > 0 and revealed == False):
         print("You currently have " + str(lives) + " lives.")
         PrintCurrentLetters(currentword, guesses)
+        print(currentword)
         if(guesscount != 0):
             PrintUsedLetters(guesses, guesscount)
             guess = input("Guess the letter:")
@@ -127,4 +135,5 @@ def Singleplayer_game(letters):
     if(lives == 0):
         LossDisplay(currentword)
     else:
-        WinDisplay(currentword)
+        WinDisplay(currentword, lives)
+        PrintUsedLetters(guesses, guesscount)
