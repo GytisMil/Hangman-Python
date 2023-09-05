@@ -3,13 +3,17 @@ import random
 import os
 import re
 def CreateWordArray():
-    wlist = open("English_dictionary.txt", "r")
-    words = [0] * 370102
-    counter = 0
-    for x in wlist:
-        words[counter] = x
-        counter += 1
-    random.shuffle(words)
+    if(os.path.exists("English_dictionary.txt") == True):
+        wlist = open("English_dictionary.txt", "r")
+        words = [0] * 370102
+        counter = 0
+        for x in wlist:
+            words[counter] = x
+            counter += 1
+        random.shuffle(words)
+    else:
+        print("Error: Missing file. Check if English_dictionary.txt file exists.")
+        quit()
     return words
         
 def GenerateWordSeed():
