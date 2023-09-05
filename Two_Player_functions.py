@@ -16,16 +16,50 @@ def WriteWord():
 
 def CheckWord(word):
     if(bool(re.search('^[a-zA-Z ]*$',word))==True):
-        if(bool(re.search(' {2,}',word))==False): #TODO Find more than two spaces
-            Spacecount = word.split()
-            if(len(Spacecount) <= 2):
-                return True
-            else:
-                print("Too many spaces. You're writing a word, not a paragraph.")
-                return False
+        Spacecount = word.split()
+        if(len(Spacecount) < 3):
+            return True
         else:
-            print("Invalid input. Check if you added multiple spaces.")
+            print("Too many spaces. You're writing a word, not a paragraph.")
             return False
     else:
         print("Invalid input. Try again.")
         return False
+    
+def MakeWordLetters(word):
+    Newword = word.split() #Used to remove all spaces
+    First_letters = [0] * len(Newword[0])
+    counter = 0
+    for letter in Newword[0]:
+        First_letters[counter] = letter
+        counter += 1
+    First_letters[0] = First_letters[0].upper()
+    Final_letters = First_letters
+    if(len(Newword) == 2):
+        Second_letters = [0] * len(Newword[1])
+        counter = 0
+        for letter in Newword[1]:
+            Second_letters[counter] = letter
+            counter += 1
+        Final_letters.append(" ")
+        Final_letters += Second_letters
+        return Final_letters
+    else:
+        return Final_letters
+
+def DisplayChoice(letters):
+    print("Your word is:", end="")
+    choosen_word = CreateFullWord(letters)
+    print("'" + choosen_word + "'.")
+    print("Do you accept? (Y/N)")
+    confirm = input()
+    while(confirm != "N" and confirm != 'n' and confirm != 'Y' and confirm != 'y'):
+        print("Invalid input.")
+        confirm = input()
+    return confirm
+
+def CreateFullWord(letters):
+    word = ''
+    for letter in letters:
+        word += letter
+    return word

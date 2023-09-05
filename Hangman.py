@@ -18,8 +18,8 @@ if(mode == "S" or mode == "s"):
         WordSeed = Singleplayer_functions.GenerateWordSeed()
         Word = Singleplayer_functions.GetNewWord(WordSeed, WordList)
         print("Word generated!")
-        Correct_Letters = Singleplayer_functions.MakeWordLetters(Word)
-        Singleplayer_functions.Singleplayer_game(Correct_Letters)
+        Word_Letters = Singleplayer_functions.MakeWordLetters(Word)
+        Singleplayer_functions.Singleplayer_game(Word_Letters)
         print("Play again? (Y/N)")
         SPagain = input()
         while(SPagain != "N" and SPagain != 'n' and SPagain != 'Y' and SPagain != 'y'):
@@ -28,8 +28,8 @@ if(mode == "S" or mode == "s"):
             SPagain = input()
 elif(mode == "T" or mode == "t"):
     print("Dual-Player mode selected!")
-    Hanger = 1
-    Guesser = 2
+    Hanger = "One"
+    Guesser = "Two"
     print("Do you need instructions how this game works? (Y/N)")
     instruct = input()
     while(instruct != "N" and instruct != 'n' and instruct != 'Y' and instruct != 'y'):
@@ -37,3 +37,11 @@ elif(mode == "T" or mode == "t"):
         instruct = input()
     if(instruct == 'Y' or instruct == 'y'):
         Two_Player_functions.Instructions()
+    DPagain = ''
+    while(DPagain != 'n' and DPagain != 'N'):
+        Confirmed_word = ''
+        while(Confirmed_word != 'Y' and Confirmed_word != 'y'):
+            Word = Two_Player_functions.WriteWord()
+            Word_Letters = Two_Player_functions.MakeWordLetters(Word)
+            Confirmed_word = Two_Player_functions.DisplayChoice(Word_Letters)
+        print("Starting game...")
