@@ -39,6 +39,7 @@ elif(mode == "T" or mode == "t"):
         Two_Player_functions.Instructions()
     DPagain = ''
     while(DPagain != 'n' and DPagain != 'N'):
+        Two_Player_functions.DisplayCurrentRoles(Hanger, Guesser)
         Confirmed_word = ''
         while(Confirmed_word != 'Y' and Confirmed_word != 'y'):
             Word = Two_Player_functions.WriteWord()

@@ -5,6 +5,15 @@ def Instructions():
     print("The Guesser has 5 lives to find out what Hanger wrote.\nThe round ends when Guesser figures the word out or rans out of lives.")
     print("Keep in mind, after every round - the roles of players switches.\nYou can end Hangman game at the end of the round, when prompt to continue appears.")
 
+def ChangeRoles(Hanger, Guesser):
+    c = Hanger
+    Hanger = Guesser
+    Guesser = c
+    return Hanger, Guesser
+
+def DisplayCurrentRoles(Hanger, Guesser):
+    print("Current roles:\nHanger - Player " + Hanger + "\nGuesser - Player " + Guesser)
+
 def WriteWord():
     print("Write your word: ", end = "")
     word = input()
@@ -20,10 +29,10 @@ def CheckWord(word):
         if(len(Spacecount) < 3):
             return True
         else:
-            print("Too many spaces. You're writing a word, not a paragraph.")
+            print("Too many spaces. You're writing a word, not a paragraph.\nWrite your word: ", end="")
             return False
     else:
-        print("Invalid input. Try again.")
+        print("Invalid input. Try again.\n Write your word: ", end="")
         return False
     
 def MakeWordLetters(word):
