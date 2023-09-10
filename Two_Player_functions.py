@@ -1,9 +1,11 @@
 import re
+import os
 def Instructions():
     print("There are two players: Hanger and Guesser.\nFirst player, the Hanger, will write the word, where second player, the Guesser, has to figure it out.")
     print("Important to note - the word cannot have any numbers (obviously) and no special symbols (ex. ice-cream is not allowed, but ice cream is.)")
     print("The Guesser has 5 lives to find out what Hanger wrote.\nThe round ends when Guesser figures the word out or rans out of lives.")
     print("Keep in mind, after every round - the roles of players switches.\nYou can end Hangman game at the end of the round, when prompt to continue appears.")
+    print("Lastly, the game is running on Honor system - Guesser has to look away when Hanger is writing it's word! Don't cheat!")
 
 def ChangeRoles(Hanger, Guesser):
     c = Hanger
@@ -14,6 +16,11 @@ def ChangeRoles(Hanger, Guesser):
 def DisplayCurrentRoles(Hanger, Guesser):
     print("Current roles:\nHanger - Player " + Hanger + "\nGuesser - Player " + Guesser)
 
+def HideWord(): #Anti-Cheat measure
+    counter = 0
+    while(counter < 2000):
+        print("")
+        counter += 1
 def WriteWord():
     print("Write your word: ", end = "")
     word = input()
@@ -72,3 +79,104 @@ def CreateFullWord(letters):
     for letter in letters:
         word += letter
     return word
+
+def HangerWin(letters):
+    print("Hanger Won!")
+    answer = CreateFullWord(letters)
+    print("The answer was '" + answer + "'")
+
+def GuesserWin(letters, lives):
+    print("Guesser Won!")
+    answer = CreateFullWord(letters)
+    print("Hanger's word was '" + answer + "'")
+    print("Guesser had " + str(lives) + " lives remaining.")
+
+#Reusing functions made in Singleplayer
+def Multiplayer_game(letters):
+    lives = 5
+    guesses = [0] * (lives * len(letters))
+    guesscount = 0
+    revealed = False
+    currentword = letters
+    while(lives > 0 and revealed == False):
+        print("Guesser currently has " + str(lives) + " lives.")
+        PrintCurrentLetters(currentword, guesses)
+        if(guesscount != 0):
+            PrintUsedLetters(guesses, guesscount)
+            guess = input("Guess the letter:")
+            if(guess.strip() != '' and len(guess) == 1 and bool(re.search('^[a-zA-Z]*$',guess)) == True):
+                if(CheckRepeater(guess, guesses, guesscount)):
+                    guesscount += 1
+                    lives = CheckGuess(lives, guess, letters)
+                    revealed = CheckReveal(letters, guesses)
+                    os.system('cls')
+                else:
+                    os.system('cls')
+                    print("You already used this letter!")
+            else:
+                os.system('cls')
+                print("Invalid input. Try again.")
+        else:
+            guess = input("Guess the letter:")
+            if(guess.strip() != '' and len(guess) == 1 and bool(re.search('^[a-zA-Z]*$',guess))==True):
+                guesses[guesscount] = guess
+                guesscount += 1
+                lives = CheckGuess(lives, guess, letters)
+                os.system('cls')
+            else:
+                os.system('cls')
+                print("Invalid input. Try again.")
+    if(lives == 0):
+        HangerWin(currentword)
+    else:
+        GuesserWin(currentword, lives)
+        PrintUsedLetters(guesses, guesscount)
+
+def PrintCurrentLetters(letters, guesses):
+    for letter in letters:
+        if letter.lower() in guesses or letter.upper() in guesses or letter == ' ':
+            if(letter != letters[len(letters) - 1]):
+                print(letter + " ", end = "")
+            else:
+                print(letter)
+        else:
+            if(letter != letters[len(letters) - 1]):
+                print("_ ", end = "")
+            else:
+                print("_")
+
+def CheckGuess(lives, letter, word):
+    if letter.lower() not in word and letter.upper() not in word:
+        lives -= 1
+        return lives
+    else:
+        return lives
+
+def CheckReveal(word, guesses):
+    counter = 0
+    for letter in word:
+        if letter.lower() in guesses or letter.upper() in guesses or letter == " ":
+            counter += 1
+    if counter == len(word):
+        return True
+    else:
+        return False
+    
+def PrintUsedLetters(guesses, counter):
+    print("Used letters: ", end = "")
+    x = 0
+    while x < counter:
+        if(x + 1 != counter):
+            print(guesses[x] + " ", end="")
+            x += 1
+        else:
+            print(guesses[x])
+            x += 1
+
+def CheckRepeater(letter, guesslist, guesscounter):
+    if letter.lower() in guesslist or letter.upper() in guesslist:
+        guesslist[guesscounter] = 0
+        return False
+    else:
+        guesslist[guesscounter] = letter
+        return True

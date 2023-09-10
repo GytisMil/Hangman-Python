@@ -28,8 +28,8 @@ if(mode == "S" or mode == "s"):
             SPagain = input()
 elif(mode == "T" or mode == "t"):
     print("Dual-Player mode selected!")
-    Hanger = "One"
-    Guesser = "Two"
+    Hanger = "Two"
+    Guesser = "One"
     print("Do you need instructions how this game works? (Y/N)")
     instruct = input()
     while(instruct != "N" and instruct != 'n' and instruct != 'Y' and instruct != 'y'):
@@ -39,6 +39,7 @@ elif(mode == "T" or mode == "t"):
         Two_Player_functions.Instructions()
     DPagain = ''
     while(DPagain != 'n' and DPagain != 'N'):
+        Hanger, Guesser = Two_Player_functions.ChangeRoles(Hanger, Guesser)
         Two_Player_functions.DisplayCurrentRoles(Hanger, Guesser)
         Confirmed_word = ''
         while(Confirmed_word != 'Y' and Confirmed_word != 'y'):
@@ -46,3 +47,12 @@ elif(mode == "T" or mode == "t"):
             Word_Letters = Two_Player_functions.MakeWordLetters(Word)
             Confirmed_word = Two_Player_functions.DisplayChoice(Word_Letters)
         print("Starting game...")
+        Two_Player_functions.HideWord()
+        Two_Player_functions.Multiplayer_game(Word_Letters)
+        print("Play again? (Y/N)")
+        DPagain = input()
+        while(DPagain != "N" and DPagain != 'n' and DPagain != 'Y' and DPagain != 'y'):
+            print("Invalid input.")
+            print("Play again? (Y/N)")
+            DPagain = input()
+        
