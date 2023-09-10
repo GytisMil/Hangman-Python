@@ -18,7 +18,7 @@ def DisplayCurrentRoles(Hanger, Guesser):
 
 def HideWord(): #Anti-Cheat measure
     counter = 0
-    while(counter < 2000):
+    while(counter < 20000):
         print("")
         counter += 1
 def WriteWord():
@@ -93,6 +93,7 @@ def GuesserWin(letters, lives):
 
 #Reusing functions made in Singleplayer
 def Multiplayer_game(letters):
+    os.system('cls')
     lives = 5
     guesses = [0] * (lives * len(letters))
     guesscount = 0

@@ -47,7 +47,7 @@ elif(mode == "T" or mode == "t"):
             Word_Letters = Two_Player_functions.MakeWordLetters(Word)
             Confirmed_word = Two_Player_functions.DisplayChoice(Word_Letters)
         print("Starting game...")
-        Two_Player_functions.HideWord()
+        #Two_Player_functions.HideWord()
         Two_Player_functions.Multiplayer_game(Word_Letters)
         print("Play again? (Y/N)")
         DPagain = input()
